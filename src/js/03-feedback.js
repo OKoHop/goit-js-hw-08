@@ -21,21 +21,27 @@ function addData (e) {
 
 function saveData (e) {
     e.preventDefault();
+    if(refs.input.value && refs.textArea.value) {
+        const saveData = localStorage.getItem(refs.LOCALSTORAGE_KEY)
+        console.log(JSON.parse(saveData));
 
-    const saveData = localStorage.getItem(refs.LOCALSTORAGE_KEY)
-    console.log(JSON.parse(saveData));
-
-    e.currentTarget.reset();
-    localStorage.removeItem(refs.LOCALSTORAGE_KEY);
-    console.log('DONE!')
+        e.currentTarget.reset();
+        localStorage.removeItem(refs.LOCALSTORAGE_KEY);
+    
+        console.log('DONE!')
+    } else {
+        alert('Enter data!')
+    }
+    
 }
 
 function loadUserData (e) {
     const saveData = localStorage.getItem(refs.LOCALSTORAGE_KEY)
     if(saveData) {
         const userData = JSON.parse(saveData);
-        
-        refs.input.value = userData.email;
-        refs.textArea.value = userData.message;
+        userData.email ? refs.input.value = userData.email: userData.email = '';
+        userData.message ? refs.textArea.value = userData.message: userData.message = '';
+    } else {
+        console
     }
 }
